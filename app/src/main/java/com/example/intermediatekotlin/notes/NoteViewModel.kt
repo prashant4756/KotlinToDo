@@ -7,17 +7,13 @@ import com.example.intermediatekotlin.models.Note
 
 class NoteViewModel :ViewModel(), NoteListViewContract {
 
+    private val model : NoteModel = NoteModel()
+
     private val _notesListLiveData : MutableLiveData<MutableList<Note>> = MutableLiveData()
+
     val notesLiveData : LiveData<MutableList<Note>> = _notesListLiveData
 
     init {
-        _notesListLiveData.postValue(getFakeData())
+        _notesListLiveData.postValue(model.getFakeData())
     }
-
-    fun getFakeData() : MutableList<Note> = mutableListOf(
-            Note("This is my personal note"),
-            Note("This is my public note"),
-            Note("This is my ViewModel note")
-
-    )
 }
