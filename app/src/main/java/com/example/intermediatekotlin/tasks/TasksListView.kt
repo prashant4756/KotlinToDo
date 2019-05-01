@@ -8,6 +8,10 @@ import com.example.intermediatekotlin.models.Task
 import kotlinx.android.synthetic.main.fragment_task.*
 import kotlinx.android.synthetic.main.fragment_task.view.*
 
+//root layout of this tasksListfragment ,
+//in onCreateView its infalted and casted to TasksListView,
+//inside this TasksListView class recycler view is added
+
 class TasksListView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
@@ -15,20 +19,25 @@ class TasksListView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     lateinit var adapter: TaskAdapter
     private lateinit var touchAction: TasksListFragment.TouchAction
+    private lateinit var dataActionDelegate : TaskListViewContract
 
-    fun initView(touchAction: TasksListFragment.TouchAction){
-        setDelegate(touchAction)
+    fun initView(touchAction: TasksListFragment.TouchAction, daDelegate : TaskListViewContract){
+        setDelegate(touchAction, daDelegate)
         setUpView()
     }
 
-    private fun setDelegate(touchAction: TasksListFragment.TouchAction){
+    private fun setDelegate(touchAction: TasksListFragment.TouchAction, daDelegate : TaskListViewContract){
         this.touchAction = touchAction
+        this.dataActionDelegate = daDelegate
     }
 
 
     private fun setUpView(){
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = TaskAdapter(touchAction = touchAction) //named parameter
+        adapter = TaskAdapter(
+                touchAction = touchAction,
+                dataActionDelegate = dataActionDelegate
+        ) //named parameter
         recyclerView.adapter = adapter
 
     }

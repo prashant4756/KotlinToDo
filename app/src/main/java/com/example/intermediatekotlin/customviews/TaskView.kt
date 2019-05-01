@@ -28,17 +28,22 @@ class TaskView @JvmOverloads constructor(
 
     lateinit var task: Task
 
-     fun initView(task : Task){
+     fun initView(task : Task, todoCheckedCallback : (Int, Boolean) -> Unit){
 
+//         todoCheckedCallback - used to update viewmodel once to-do is checked,
+         //this function accepts int & boolean -> returns void
          this.task = task;
 
          titleView.text = task.title
-         task.todos.forEach{ todo ->
+         task.todos.forEachIndexed{todoIndex, todo ->
 
              var todoView = (LayoutInflater.from(this.context).inflate(R.layout.todo_view, todoContainer, false) as TodoView)
                      .apply {
-                         initView(todo) {
+                         initView(todo) { isChecked ->
                              //this curly bracket is a function passed as parameter to initview
+
+                             todoCheckedCallback.invoke(todoIndex, isChecked)
+
                              if(isTaskComplete() )
                                  createStrikeThrough()
                              else

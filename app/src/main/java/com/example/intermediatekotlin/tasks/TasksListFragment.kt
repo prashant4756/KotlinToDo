@@ -23,7 +23,9 @@ class TasksListFragment : Fragment() {
 
     lateinit var viewModel: TaskViewModel //initialize it later on, if initialized here view model will be tightly coupled with fragment lifecycle
     lateinit var touchAction: TouchAction
-    private lateinit var contentView : TasksListView
+    private lateinit var contentView : TasksListView //root layout of this fragment ,
+    //in onCreateView its infalted and casted to TasksListView,
+    //inside this TasksListView class recycler view is added
 
 
     override fun onAttach(context: Context?) {
@@ -45,18 +47,19 @@ class TasksListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setContentView()
         bindViewModel()
+        setContentView()
 
     }
 
     private fun setContentView() {
-        contentView.initView(touchAction)
+        contentView.initView(touchAction, viewModel) //since viewmodel implements dataActionDelegate thats why passing viewmodel
     }
 
     private fun bindViewModel() {
         viewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
         viewModel.taskListLiveData.observe(this, Observer { taskList ->
+            //void onChanged(T t);
             //update the adapter
             contentView.updateList(taskList)
         })

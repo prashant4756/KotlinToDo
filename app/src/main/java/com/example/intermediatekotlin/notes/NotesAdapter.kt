@@ -22,7 +22,7 @@ class NotesAdapter(
     }
 
     class NoteViewHolder(view: View) : BaseViewHolder<Note>(view) {
-        override fun onBind(holderData: Note) {
+        override fun onBind(holderData: Note,  listIndex : Int) {
 //            (view as NoteView).apply { initView(holderData) }
             (view as NoteView).initView(holderData)
         }
@@ -30,7 +30,7 @@ class NotesAdapter(
 
 
     inner class AddButtonViewHolder(view: View) : BaseAdapter.AddButtonViewHolder(view) {
-        override fun onBind(holderData: Unit) {
+        override fun onBind(holderData: Unit,  listIndex : Int) {
             view.buttonText.text = "Add New Note"
             view.setOnClickListener {
                 touchAction.onAddButtonClicked(NavigationActivity.FRAGMENT_VALUE_NOTE)

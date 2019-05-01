@@ -15,7 +15,7 @@ class TodoView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
 
-    fun initView(todo: Todo, callback: (() -> Unit)?=null) {
+    fun initView(todo: Todo, callback: ((Boolean) -> Unit)?=null) {
 
         descriptionView.text = todo.description
         isCompleteCheckBox.isChecked = todo.isComplete
@@ -43,10 +43,10 @@ class TodoView @JvmOverloads constructor(
     // operate this function : callback.invoke()
 
     //dont know what this function does, but everytime when checkbox is checked, we invoke this function
-    fun setCheckChangedListener(todo : Todo, callback : (() -> Unit)?=null) {
+    fun setCheckChangedListener(todo : Todo, callback : ((Boolean) -> Unit)?=null) {
         isCompleteCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            todo.isComplete = isChecked
-            callback?.invoke() //means if callback is null, it will not execute invoke(ischecked)
+//            todo.isComplete = isChecked
+            callback?.invoke(isChecked) //means if callback is null, it will not execute invoke(ischecked)
             if (isChecked) {
                 createStrikeThrough()
             } else
