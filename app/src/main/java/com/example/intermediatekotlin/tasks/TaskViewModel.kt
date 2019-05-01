@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.intermediatekotlin.models.Task
 import toothpick.Toothpick
+import toothpick.config.Module
 import javax.inject.Inject
 
 class TaskViewModel : ViewModel(), TaskListViewContract {
 
     @Inject
-    lateinit var model: TaskModel
+    lateinit var model: ITaskModel
 
     private val _taskListLiveData: MutableLiveData<MutableList<Task>> = MutableLiveData() //it can be changed manually
     val taskListLiveData: LiveData<MutableList<Task>> = _taskListLiveData //LiveData cannot be changed manually, it will be same always (Read only access)
@@ -19,6 +20,9 @@ class TaskViewModel : ViewModel(), TaskListViewContract {
 
         //toothpick is scope based di
         val scope = Toothpick.openScope("anyNameOfChoice or this")
+        scope.installModules(Module().apply {
+            this.bind(ITaskModel::class.java).toInstance(TaskLocalModel())
+        })
         Toothpick.inject(this, scope)
 
         //called whenever a constructor is made
