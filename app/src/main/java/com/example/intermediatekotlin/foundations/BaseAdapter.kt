@@ -1,6 +1,7 @@
 package com.example.intermediatekotlin.foundations
 
 import android.view.View
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T>(
@@ -12,10 +13,12 @@ abstract class BaseAdapter<T>(
         const val TYPE_INFO = 1
     }
 
-    fun updateList(data: List<T>) {
+    fun  updateList(data: List<T>) {
+
+        val result = DiffUtil.calculateDiff(DiffUtilCallbackImp(masterList, data))
         masterList.clear()
         masterList.addAll(data)
-        notifyDataSetChanged()
+        result.dispatchUpdatesTo(this)
     }
 
     override fun getItemViewType(position: Int): Int = if (position == 0) {
@@ -38,4 +41,17 @@ abstract class BaseAdapter<T>(
     }
 
     abstract class AddButtonViewHolder(view: View) : BaseViewHolder<Unit>(view)
+
+    class DiffUtilCallbackImp <T>(val oldList : List<T>, val newList : List<T>) : DiffUtil.Callback( ){
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean  =
+                oldList[oldItemPosition] == newList[newItemPosition]
+
+        override fun getOldListSize(): Int  = oldList.size
+
+        override fun getNewListSize(): Int  = newList.size
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                oldList[oldItemPosition] == newList[newItemPosition]
+
+    }
 }
