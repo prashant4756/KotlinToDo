@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.intermediatekotlin.models.Task
-import kotlinx.android.synthetic.main.fragment_task.*
 import kotlinx.android.synthetic.main.fragment_task.view.*
 
 //root layout of this tasksListfragment ,
@@ -19,20 +18,20 @@ class TasksListView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     lateinit var adapter: TaskAdapter
     private lateinit var touchAction: TasksListFragment.TouchAction
-    private lateinit var dataActionDelegate : TaskListViewContract
+    private lateinit var dataActionDelegate: TaskListViewContract
 
-    fun initView(touchAction: TasksListFragment.TouchAction, daDelegate : TaskListViewContract){
+    fun initView(touchAction: TasksListFragment.TouchAction, daDelegate: TaskListViewContract) {
         setDelegate(touchAction, daDelegate)
         setUpView()
     }
 
-    private fun setDelegate(touchAction: TasksListFragment.TouchAction, daDelegate : TaskListViewContract){
+    private fun setDelegate(touchAction: TasksListFragment.TouchAction, daDelegate: TaskListViewContract) {
         this.touchAction = touchAction
         this.dataActionDelegate = daDelegate
     }
 
 
-    private fun setUpView(){
+    private fun setUpView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = TaskAdapter(
                 touchAction = touchAction,
@@ -42,7 +41,7 @@ class TasksListView @JvmOverloads constructor(
 
     }
 
-    fun updateList(tasks : List<Task>){
+    fun updateList(tasks: List<Task>) {
         adapter.updateList(tasks)
     }
 }

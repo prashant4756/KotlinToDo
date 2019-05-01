@@ -15,16 +15,16 @@ class NotesListView @JvmOverloads constructor(
 
     lateinit var adapter: NotesAdapter
     private lateinit var touchAction: NotesFragmentList.TouchAction
-    private lateinit var dataActionDelegate : NoteListViewContract
+    private lateinit var dataActionDelegate: NoteListViewContract
 
-    fun initView(taDelegate : NotesFragmentList.TouchAction, daDelegate : NoteListViewContract){
+    fun initView(taDelegate: NotesFragmentList.TouchAction, daDelegate: NoteListViewContract) {
         setDelegate(taDelegate, daDelegate)
         setUpView()
     }
 
-    private fun setUpView(){
+    private fun setUpView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = NotesAdapter(touchAction =  touchAction)
+        adapter = NotesAdapter(touchAction = touchAction)
         recyclerView.adapter = adapter
 
     }
@@ -34,7 +34,7 @@ class NotesListView @JvmOverloads constructor(
         dataActionDelegate = daDelegate
     }
 
-    fun updateList(notes : List<Note>){
+    fun updateList(notes: List<Note>) {
         adapter.updateList(notes)
     }
 }

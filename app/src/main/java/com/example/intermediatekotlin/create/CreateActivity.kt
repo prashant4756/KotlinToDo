@@ -1,9 +1,7 @@
 package com.example.intermediatekotlin.create
 
-import androidx.appcompat.app.AppCompatActivity
-
 import android.os.Bundle
-
+import androidx.appcompat.app.AppCompatActivity
 import com.example.intermediatekotlin.R
 import com.example.intermediatekotlin.navigation.NavigationActivity
 import kotlinx.android.synthetic.main.activity_create.*

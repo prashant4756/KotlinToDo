@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.view_add_button.view.*
 class TaskAdapter(
         tasks: MutableList<Task> = mutableListOf(),
         val touchAction: TasksListFragment.TouchAction,
-        val dataActionDelegate : TaskListViewContract
+        val dataActionDelegate: TaskListViewContract
 ) : BaseAdapter<Task>(tasks) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = if (viewType == TYPE_ADD_BUTTON) {
@@ -23,8 +23,8 @@ class TaskAdapter(
     }
 
     inner class TaskViewHolder(view: View) : BaseViewHolder<Task>(view) {
-        override fun onBind(holderData: Task,  listIndex : Int) {
-            (view as TaskView).initView(holderData){ todoIndex , isChecked ->
+        override fun onBind(holderData: Task, listIndex: Int) {
+            (view as TaskView).initView(holderData) { todoIndex, isChecked ->
                 //since initview has 2nd parameter as a callback, so we need to implement that callback
                 //thats why we have this lambda, here we are implementing that callback
                 //which takes 2 params, which we are getting as todoIndex , isChecked ->
@@ -35,7 +35,7 @@ class TaskAdapter(
     }
 
     inner class AddButtonViewHolder(view: View) : BaseAdapter.AddButtonViewHolder(view) {
-        override fun onBind(holderData: Unit,  listIndex : Int) {
+        override fun onBind(holderData: Unit, listIndex: Int) {
             view.buttonText.text = "Add New Task"
             view.setOnClickListener {
                 touchAction.onAddButtonClicked(NavigationActivity.FRAGMENT_VALUE_TASK)
