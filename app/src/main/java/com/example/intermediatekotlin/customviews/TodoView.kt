@@ -20,7 +20,7 @@ class TodoView @JvmOverloads constructor(
         isCompleteCheckBox.isChecked = todo.isComplete
 
         if (todo.isComplete) {
-            descriptionView.paintFlags = descriptionView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            descriptionView.setStrikeThrough()
         }
 
         setCheckChangedListener(todo, callback)
@@ -47,24 +47,9 @@ class TodoView @JvmOverloads constructor(
             //            todo.isComplete = isChecked
             callback?.invoke(isChecked) //means if callback is null, it will not execute invoke(ischecked)
             if (isChecked) {
-                createStrikeThrough()
+                this@TodoView.descriptionView.setStrikeThrough()
             } else
-                removeStrikeThrough()
+                this@TodoView. descriptionView.removeStrikeThrough()
         }
     }
-
-    private fun createStrikeThrough() {
-        descriptionView.apply {
-            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        }
-
-    }
-
-    private fun removeStrikeThrough() {
-        descriptionView.apply {
-            paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-        }
-    }
-
-
 }
