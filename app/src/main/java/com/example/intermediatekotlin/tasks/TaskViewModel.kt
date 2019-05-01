@@ -3,6 +3,7 @@ package com.example.intermediatekotlin.tasks
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.intermediatekotlin.foundations.ApplicationScope
 import com.example.intermediatekotlin.models.Task
 import toothpick.Toothpick
 import toothpick.config.Module
@@ -19,11 +20,7 @@ class TaskViewModel : ViewModel(), TaskListViewContract {
     init {
 
         //toothpick is scope based di
-        val scope = Toothpick.openScope("anyNameOfChoice or this")
-        scope.installModules(Module().apply {
-            this.bind(ITaskModel::class.java).toInstance(TaskLocalModel())
-        })
-        Toothpick.inject(this, scope)
+        Toothpick.inject(this, ApplicationScope.scope)
 
         //called whenever a constructor is made
 //        _taskListLiveData.value = getFakeData() //synchronously
