@@ -2,8 +2,9 @@ package com.example.intermediatekotlin.tasks
 
 import com.example.intermediatekotlin.models.Task
 import com.example.intermediatekotlin.models.Todo
+import javax.inject.Inject
 
-class TaskModel {
+class TaskModel @Inject constructor() {
     fun getFakeData(): MutableList<Task> = mutableListOf(
             Task("Buy groceries", mutableListOf(
                     Todo("Todo 1", true),
